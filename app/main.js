@@ -13,6 +13,8 @@ function(Marionette, GIF, api, Thumbs) {
   window.api = api;
 
   $('body').letItSnow();
+  $('button').hide();
+  $('#spinner').hide();
 
 
   navigator.getUserMedia  = navigator.getUserMedia ||
@@ -25,6 +27,8 @@ function(Marionette, GIF, api, Thumbs) {
   var canvas = document.querySelector('canvas');
   var button = document.querySelector('button');
   var target = document.getElementById('target');
+  var canvasToImage = document.getElementById('canvas-to-image');
+
   var ctx = canvas.getContext('2d');
   var localMediaStream = null;
 
@@ -51,6 +55,7 @@ function(Marionette, GIF, api, Thumbs) {
 
   function successCallback(stream) {
     if (window.URL) {
+      $('button').show();
       video.src = window.URL.createObjectURL(stream);
       localMediaStream = stream;
     } else {
@@ -69,6 +74,9 @@ function(Marionette, GIF, api, Thumbs) {
 
   function makeHug () {
 
+    $('#spinner').show();
+    $('button').hide();
+
     var gif = new GIF({
       workers: 2,
       quality: 1,
@@ -78,6 +86,8 @@ function(Marionette, GIF, api, Thumbs) {
     });
 
     gif.on('finished', function(blob) {
+      $('#spinner').hide();
+      $('button').show();
       target.src = window.URL.createObjectURL(blob);
 
       api.model.save({
@@ -109,7 +119,7 @@ function(Marionette, GIF, api, Thumbs) {
         ctx.drawImage(video, 0, 0, 160, 120);
         // "image/webp" works in Chrome.
         // Other browsers will fall back to image/png.
-        document.querySelector('img').src = canvas.toDataURL('image/webp');
+        canvasToImage.src = canvas.toDataURL('image/webp');
       }
 
     }, 100);

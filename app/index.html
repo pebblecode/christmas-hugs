@@ -23,6 +23,7 @@
   <div class="jumbotron">
     <h1>Christmas Hugs</h1>
 
+      <img src="/assets/images/ajax-spinner.gif" id="spinner">
       <button class="btn btn-primary">Make a hug</button>
     <p>Show your love for the world in 3 seconds</p>
   </div>
@@ -30,9 +31,9 @@
 
 
   <div class="well">
-    <video width='640' height='480'></video>
+    <video width='640' height='480' poster='/assets/images/placeholder.jpg'></video>
     <canvas width='160' height='120'></canvas>
-    <img class='hidden' src="">
+    <img class='hidden' id="canvas-to-image" src="">
     <img class="pull-right" id='target' src="">
   </div>
 
