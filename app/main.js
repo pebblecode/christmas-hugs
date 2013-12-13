@@ -2,8 +2,7 @@ require([
   'marionette',
   'gif',
   './api',
-  './views/thumbs',
-  'letitsnow'
+  './views/thumbs'
 ],
 
 function(Marionette, GIF, api, Thumbs) {
@@ -15,7 +14,6 @@ function(Marionette, GIF, api, Thumbs) {
   $('body').letItSnow();
   $('button').hide();
   $('#spinner').hide();
-
 
   navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
@@ -91,7 +89,7 @@ function(Marionette, GIF, api, Thumbs) {
       target.src = window.URL.createObjectURL(blob);
 
       api.model.save({
-        dataUri: canvas.toDataURL('image/webp')
+        dataUri: canvas.toDataURL('image/gif')
       });
 
 
@@ -119,7 +117,6 @@ function(Marionette, GIF, api, Thumbs) {
         ctx.drawImage(video, 0, 0, 160, 120);
         // "image/webp" works in Chrome.
         // Other browsers will fall back to image/png.
-        canvasToImage.src = canvas.toDataURL('image/webp');
       }
 
     }, 100);

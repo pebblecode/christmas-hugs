@@ -16,9 +16,14 @@ function (Backbone) {
   });
 
   api.Collection = Backbone.Collection.extend({
+    initialize: function() {
+      this.sort({
+        silent: true
+      });
+    },
     url: 'http://christmas-hugs-api.herokuapp.com/hugs',
     model: api.Model,
-    comparator: function(m) {
+    comparator: function (m) {
       return -m.get("_id");
     }
   });

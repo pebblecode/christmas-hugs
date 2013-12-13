@@ -11,7 +11,6 @@ require.config({
     backbone:      '/bower_components/backbone/backbone',
     gif:           '/bower_components/gif.js/dist/gif',
     gifworker:     '/bower_components/gif.js/dist/gif.worker',
-    letitsnow:     '/bower_components/letitsnow.js/index',
     marionette:    '/bower_components/backbone.marionette/lib/backbone.marionette',
     hbs:           '/bower_components/backbone.marionette.hbs/backbone.marionette.hbs',
     text:          '/bower_components/requirejs-text/text'
@@ -36,15 +35,10 @@ require.config({
       exports: 'GIF'
     },
 
-    'letitsnow': {
-      deps: ['jquery'],
-      exports: 'jQuery.fn.letItSnow'
-    },
-
     'marionette': {
       deps: ['backbone'],
       exports: 'Backbone.Marionette'
-    },
+    }
 
   }
 
