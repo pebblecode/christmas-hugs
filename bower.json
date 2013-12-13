@@ -23,6 +23,7 @@
     "bootstrap": "~3.0.3",
     "underscore": "~1.5.2",
     "jquery": "~2.0.3",
-    "requirejs": "~2.1.9"
+    "requirejs": "~2.1.9",
+    "letitsnow.js": "https://raw.github.com/drawain/let-it-snow/master/js/letitsnow.js"
   }
 }

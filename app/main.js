@@ -1,6 +1,7 @@
 require([
   'gif',
-  './api'
+  './api',
+  'letitsnow'
 ],
 
 function(GIF, api) {
@@ -8,6 +9,8 @@ function(GIF, api) {
   'use strict';
 
   window.api = api;
+
+  $('body').letItSnow();
 
 
   navigator.getUserMedia  = navigator.getUserMedia ||

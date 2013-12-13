@@ -10,7 +10,8 @@ require.config({
     underscore:    '/bower_components/underscore/underscore',
     backbone:      '/bower_components/backbone/backbone',
     gif:           '/bower_components/gif.js/dist/gif',
-    gifworker:     '/bower_components/gif.js/dist/gif.worker'
+    gifworker:     '/bower_components/gif.js/dist/gif.worker',
+    letitsnow:     '/bower_components/letitsnow.js/index'
   },
 
   shim: {
@@ -30,6 +31,11 @@ require.config({
 
     'gif': {
       exports: 'GIF'
+    },
+
+    'letitsnow': {
+      deps: ['jquery'],
+      exports: 'jQuery.fn.letItSnow'
     }
   }
 
