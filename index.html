@@ -1,7 +1,15 @@
 <DOCTYPE html>
 <html>
 <head>
-<script src="gif.js"></script>
+<style>
+  .hidden {
+    display: none;
+  }
+  canvas {
+    display: none;
+  }
+</style>
+<script src="bower_components/gif.js/dist/gif.js"></script>
 <meta charset="utf-8">
 <title>Christmas Hugs - Hug Humanity</title>
 <!--
@@ -10,11 +18,13 @@ https://github.com/hdragomir/gif.js
 <body>
 
 <h1>Christmas Hugs</h1>
+<button>Make a hug</button>
 <p>Show your love for the world in 3 seconds</p>
 
-<video></video>
-<canvas width='640' height='480'></canvas>
-<img src="">
+<video width='640' height='480'></video>
+<canvas width='160' height='120'></canvas>
+<img class='hidden' src="">
+<img id='target' src="">
 
 <script>
 
@@ -35,11 +45,15 @@ https://github.com/hdragomir/gif.js
   var constraints = { audio: false, video: true };
   var video = document.querySelector('video');
   var canvas = document.querySelector('canvas');
+  var button = document.querySelector('button');
+  var target = document.getElementById('target');
   var ctx = canvas.getContext('2d');
   var localMediaStream = null;
 
 
-  video.addEventListener('click', snapshot, false);
+  button.addEventListener('click', snapshot, false);
+  button.addEventListener('click', makeHug, false);
+
 
   function successCallback(stream) {
     if (window.URL) {
@@ -51,40 +65,48 @@ https://github.com/hdragomir/gif.js
     video.play();
   }
 
-  setTimeout(function () {
-    snapshot();
-  },1000);
+  function pipeVideoToImage () {
+    setInterval(snapshot, 1000);
+  }
 
   function errorCallback(error) {
     console.log("navigator.getUserMedia error: ", error);
   }
 
-  function makeGif () {
+  function makeHug () {
+
     var gif = new GIF({
       workers: 2,
-      quality: 10
+      quality: 1,
+      width: 160,
+      height: 120, 
+      workerScript: 'bower_components/gif.js/dist/gif.worker.js'
     });
-
-    // or copy the pixels from a canvas context
-    gif.addFrame(canvas, {delay: 200});
-    gif.addFrame(canvas, {delay: 400});
 
     gif.on('finished', function(blob) {
-      console.log(blob);
-        window.open(URL.createObjectURL(blob));
+      target.src = window.URL.createObjectURL(blob);
     });
 
-    gif.render();
+    var takePictures = setInterval (function () { 
+      gif.addFrame(ctx, {copy: true, delay: 100});
+    }, 100 );
+
+    setTimeout(function() { 
+      clearTimeout(takePictures); 
+      gif.render(); 
+    }, 2000);
 
   }
 
   function snapshot() {
-    if (localMediaStream) {
-      ctx.drawImage(video, 0, 0);
-      // "image/webp" works in Chrome.
-      // Other browsers will fall back to image/png.
-      document.querySelector('img').src = canvas.toDataURL('image/webp');
-    }
+    setInterval( function () {
+      if (localMediaStream) {
+        ctx.drawImage(video, 0, 0, 160, 120);
+        // "image/webp" works in Chrome.
+        // Other browsers will fall back to image/png.
+        document.querySelector('img').src = canvas.toDataURL('image/webp');
+      }
+    }, 100);
   }
 
   navigator.getUserMedia(constraints, successCallback, errorCallback);
