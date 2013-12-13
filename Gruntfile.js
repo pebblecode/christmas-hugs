@@ -11,14 +11,13 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     watch: {
-      files: 'app/index.js',
+      files: ['app/index.js', 'Gruntfile.js'],
       tasks: ['browserify']
     },
 
     browserify: {
       build: {
         options: {
-          debug: true,
           shim: {
             jquery: {
               path: 'bower_components/jquery/jquery.js',

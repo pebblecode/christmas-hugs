@@ -1,15 +1,15 @@
-/*
-Generate GIF
-var gif = new GIF({ workers: 2, quality: 10, width: 640, height: 480 });
-gif.addFrame(ctx, {copy: true});
-gif.render();
-*/
+//
+// # main
+//
 
-'use strict';
+require([
+  'gif'
+],
 
-require('gif');
+function(GIF) {
 
-module.exports = (function() {
+  'use strict';
+
 
   navigator.getUserMedia  = navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
@@ -30,8 +30,8 @@ module.exports = (function() {
 
 
   function successCallback(stream) {
-    if (global.URL) {
-      video.src = global.URL.createObjectURL(stream);
+    if (window.URL) {
+      video.src = window.URL.createObjectURL(stream);
       localMediaStream = stream;
     } else {
       video.src = stream;
@@ -57,7 +57,7 @@ module.exports = (function() {
     });
 
     gif.on('finished', function(blob) {
-      target.src = global.URL.createObjectURL(blob);
+      target.src = window.URL.createObjectURL(blob);
     });
 
     var takePictures = setInterval (function () {
@@ -85,5 +85,4 @@ module.exports = (function() {
   navigator.getUserMedia(constraints, successCallback, errorCallback);
 
 
-}());
-
+});
