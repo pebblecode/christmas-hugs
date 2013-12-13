@@ -1,6 +1,12 @@
 #spinner {
   display: none;
 }
+.thumbnails {
+  list-style: none
+}
+.thumbnails li {
+  display: inline
+}
 .let_it_snow {
         position: absolute;
         width: 25px;
