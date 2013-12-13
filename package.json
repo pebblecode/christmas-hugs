@@ -1,0 +1,24 @@
+{
+  "name": "christmas-hugs",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "browserify": "~3.2.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-lintblame": "~0.3.4",
+    "grunt-browserify": "git://github.com/jmreidy/grunt-browserify.git#v1.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pebblecode/christmas-hugs"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/pebblecode/christmas-hugs/issues"
+  }
+}
