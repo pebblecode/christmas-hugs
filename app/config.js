@@ -24,8 +24,8 @@ require.config({
       exports: 'Handlebars'
     },
 
-    gif: {
-      exports: 'Gif'
+    'gif': {
+      exports: 'GIF'
     }
   }
 

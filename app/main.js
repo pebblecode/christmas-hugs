@@ -54,6 +54,7 @@ function(GIF) {
       quality: 1,
       width: 160,
       height: 120,
+      workerScript: 'bower_components/gif.js/dist/gif.worker.js'
     });
 
     gif.on('finished', function(blob) {
