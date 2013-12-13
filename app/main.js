@@ -1,12 +1,12 @@
 require([
+  'marionette',
   'gif',
   './api',
   './views/thumbs',
-  'handlebars',
   'letitsnow'
 ],
 
-function(GIF, api, Thumbs) {
+function(Marionette, GIF, api, Thumbs) {
 
   'use strict';
 
@@ -31,6 +31,9 @@ function(GIF, api, Thumbs) {
 
   button.addEventListener('click', snapshot, false);
   button.addEventListener('click', makeHug, false);
+
+  var app =  new Marionette.Application();
+  window.app = app;
 
 
   api.collection.fetch({
@@ -79,6 +82,12 @@ function(GIF, api, Thumbs) {
 
     gif.on('finished', function(blob) {
       target.src = window.URL.createObjectURL(blob);
+
+      api.model.save({
+        dataUri: canvas.toDataURL('image/webp')
+      });
+
+
     });
 
     var takePictures = setInterval (function () {
@@ -98,34 +107,17 @@ function(GIF, api, Thumbs) {
   function snapshot () {
 
     setInterval(function () {
+
       if (localMediaStream) {
         ctx.drawImage(video, 0, 0, 160, 120);
         // "image/webp" works in Chrome.
         // Other browsers will fall back to image/png.
         document.querySelector('img').src = canvas.toDataURL('image/webp');
       }
+
     }, 100);
 
-    api.model.save({
-      dataUri: canvas.toDataURL('image/webp')
-    });
-
   }
-
-  //
-  // place {{ debug }}
-  //
-  Handlebars.registerHelper('debug', function (optionalValue) {
-    console.log('Current Context');
-    console.log('====================');
-    console.log(this);
-
-    if (optionalValue) {
-      console.log('Value');
-      console.log('====================');
-      console.log(optionalValue);
-    }
-  });
 
 
   navigator.getUserMedia(constraints, successCallback, errorCallback);
