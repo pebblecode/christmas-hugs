@@ -29,8 +29,6 @@ function(Marionette, GIF, api, Thumbs) {
   var localMediaStream = null;
 
 
-  button.addEventListener('click', snapshot, false);
-  button.addEventListener('click', makeHug, false);
 
   var app =  new Marionette.Application();
   window.app = app;
@@ -50,7 +48,6 @@ function(Marionette, GIF, api, Thumbs) {
 
     thumbsView.render();
   });
-
 
   function successCallback(stream) {
     if (window.URL) {
@@ -121,5 +118,8 @@ function(Marionette, GIF, api, Thumbs) {
 
 
   navigator.getUserMedia(constraints, successCallback, errorCallback);
+
+  button.addEventListener('click', snapshot, false);
+  button.addEventListener('click', makeHug, false);
 
 });
