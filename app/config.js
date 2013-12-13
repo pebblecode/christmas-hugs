@@ -11,7 +11,10 @@ require.config({
     backbone:      '/bower_components/backbone/backbone',
     gif:           '/bower_components/gif.js/dist/gif',
     gifworker:     '/bower_components/gif.js/dist/gif.worker',
-    letitsnow:     '/bower_components/letitsnow.js/index'
+    letitsnow:     '/bower_components/letitsnow.js/index',
+    marionette:    '/bower_components/backbone.marionette/lib/backbone.marionette',
+    hbs:           '/bower_components/backbone.marionette.hbs/backbone.marionette.hbs',
+    text:          '/bower_components/requirejs-text/text'
   },
 
   shim: {
@@ -36,7 +39,13 @@ require.config({
     'letitsnow': {
       deps: ['jquery'],
       exports: 'jQuery.fn.letItSnow'
-    }
+    },
+
+    'marionette': {
+      deps: ['backbone'],
+      exports: 'Backbone.Marionette'
+    },
+
   }
 
 });
@@ -54,7 +63,3 @@ window.requirejs.onError = function (err) {
 
   throw err;
 };
-
-if (!window.mocha) {
-  require(['main']);
-}

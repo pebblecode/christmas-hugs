@@ -1,10 +1,12 @@
 require([
   'gif',
   './api',
+  './views/thumbs',
+  'handlebars',
   'letitsnow'
 ],
 
-function(GIF, api) {
+function(GIF, api, Thumbs) {
 
   'use strict';
 
@@ -30,6 +32,21 @@ function(GIF, api) {
   button.addEventListener('click', snapshot, false);
   button.addEventListener('click', makeHug, false);
 
+
+  api.collection.fetch({
+    reset: true
+  });
+
+  api.collection.on('reset', function(data) {
+    var thumbsView = new Thumbs({
+      collection: api.collection,
+      model: api.model
+    });
+
+    $('.thumbs-container').append(thumbsView.el);
+
+    thumbsView.render();
+  });
 
   function successCallback(stream) {
     if (window.URL) {
@@ -88,11 +105,27 @@ function(GIF, api) {
       }
     }, 100);
 
+    api.model.save({
+      dataUri: canvas.toDataURL('image/webp')
+    });
+
   }
 
-  api.collection.add({
-    dataUri: canvas.toDataURL('image/webp')
+  //
+  // place {{ debug }}
+  //
+  Handlebars.registerHelper('debug', function (optionalValue) {
+    console.log('Current Context');
+    console.log('====================');
+    console.log(this);
+
+    if (optionalValue) {
+      console.log('Value');
+      console.log('====================');
+      console.log(optionalValue);
+    }
   });
+
 
   navigator.getUserMedia(constraints, successCallback, errorCallback);
 
