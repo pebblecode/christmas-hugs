@@ -11,13 +11,16 @@ function (Backbone) {
   api.Model = Backbone.Model.extend({
     url: 'http://christmas-hugs-api.herokuapp.com/hugs',
     defaults: {
-      name: (new Date()).toString()
+      date: (new Date()).toString()
     }
   });
 
   api.Collection = Backbone.Collection.extend({
     url: 'http://christmas-hugs-api.herokuapp.com/hugs',
-    model: api.Model
+    model: api.Model,
+    comparator: function(m) {
+      return -m.get("_id");
+    }
   });
 
   api.collection = new api.Collection();

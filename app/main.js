@@ -48,6 +48,7 @@ function(GIF, api, Thumbs) {
     thumbsView.render();
   });
 
+
   function successCallback(stream) {
     if (window.URL) {
       video.src = window.URL.createObjectURL(stream);

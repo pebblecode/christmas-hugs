@@ -13,7 +13,7 @@ function(Marionette, tmpl) {
   });
 
   var View = Marionette.CollectionView.extend({
-    className: 'thumbnails border-top',
+    className: 'thumbnails',
     tagName: 'ul',
     itemView: Row
   });
