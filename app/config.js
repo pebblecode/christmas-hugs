@@ -7,16 +7,20 @@ require.config({
   paths: {
     jquery:        '/bower_components/jquery/jquery',
     handlebars:    '/bower_components/handlebars/handlebars',
-    lodash:        '/bower_components/lodash/dist/lodash',
-    underscore:    '/bower_components/lodash/dist/lodash.underscore',
+    underscore:    '/bower_components/underscore/underscore',
     backbone:      '/bower_components/backbone/backbone',
     gif:           '/bower_components/gif.js/dist/gif',
     gifworker:     '/bower_components/gif.js/dist/gif.worker'
   },
 
   shim: {
+
+    'underscore': {
+     exports: '_'
+    },
+
     'backbone': {
-      deps: ['lodash', 'jquery'],
+      deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     },
 

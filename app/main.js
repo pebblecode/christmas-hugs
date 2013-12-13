@@ -1,14 +1,13 @@
-//
-// # main
-//
-
 require([
-  'gif'
+  'gif',
+  './api'
 ],
 
-function(GIF) {
+function(GIF, api) {
 
   'use strict';
+
+  window.api = api;
 
 
   navigator.getUserMedia  = navigator.getUserMedia ||
@@ -62,8 +61,11 @@ function(GIF) {
     });
 
     var takePictures = setInterval (function () {
-      gif.addFrame(ctx, {copy: true, delay: 100});
-    }, 100 );
+      gif.addFrame(ctx, {
+        copy: true,
+        delay: 100
+      });
+    }, 100);
 
     setTimeout(function() {
       clearTimeout(takePictures);
@@ -73,7 +75,8 @@ function(GIF) {
   }
 
   function snapshot () {
-    setInterval( function () {
+
+    setInterval(function () {
       if (localMediaStream) {
         ctx.drawImage(video, 0, 0, 160, 120);
         // "image/webp" works in Chrome.
@@ -81,9 +84,13 @@ function(GIF) {
         document.querySelector('img').src = canvas.toDataURL('image/webp');
       }
     }, 100);
+
   }
 
-  navigator.getUserMedia(constraints, successCallback, errorCallback);
+  api.collection.add({
+    dataUri: canvas.toDataURL('image/webp')
+  });
 
+  navigator.getUserMedia(constraints, successCallback, errorCallback);
 
 });
