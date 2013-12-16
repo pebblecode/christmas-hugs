@@ -87,10 +87,13 @@ function(Marionette, GIF, api, Thumbs) {
       $('button').show();
       target.src = window.URL.createObjectURL(blob);
 
-      api.model.save({
-        dataUri: canvas.toDataURL('image/gif')
-      });
-
+      var reader = new FileReader();
+      reader.onload = function(e){
+        api.model.save({
+          dataUri: reader.result
+        });
+      };
+      reader.readAsDataURL(blob);
 
     });
 
