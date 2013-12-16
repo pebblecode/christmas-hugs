@@ -14,6 +14,9 @@ module.exports = function(opts) {
     baseDir :   './'
   }, opts || {});
 
+
+  var port = process.env.PORT || opts.port;
+
   app.configure(function() {
     [ 'app', 'bower_components', 'assets' ].forEach(function(dir) {
       app.use('/' + dir, staticDir(opts.baseDir + dir));
@@ -26,7 +29,7 @@ module.exports = function(opts) {
   });
 
   // Actually listen
-  app.listen(opts.port || null);
+  app.listen(port || null);
 
-  console.log("Serving at http://localhost:" + (opts.port || ''));
+  console.log("Serving at http://localhost:" + (port || ''));
 };
