@@ -11,7 +11,6 @@ function(Marionette, GIF, api, Thumbs) {
 
   window.api = api;
 
-  $('body').letItSnow();
   $('button').hide();
   $('#spinner').hide();
 
